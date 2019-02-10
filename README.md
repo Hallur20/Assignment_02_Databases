@@ -21,7 +21,7 @@ then...
 
 1. clone the project
 2. open the project in netbeans idé (the project is a java maven project + you need jdk 8)
-3. push f6
+3. push f6 or right click on Main.java and click 'run file'
 4. type in the output console window:<br>
   'howMany' to see the amount of users<br>
   'links' to see the users who linked the most<br>
