@@ -86,7 +86,7 @@ public class Main {
                         continue;
                     }
                     if (!timesUser.containsKey(key)) {
-                        timesUser.put(key, 0);
+                        timesUser.put(key, 1);
                         continue;
                     }
                     timesUser.put(key, timesUser.get(key) + 1);
@@ -104,7 +104,7 @@ public class Main {
         while(cursor.hasNext()){
             String user = String.valueOf(cursor.next().get("user"));
             if(!timesUser.containsKey(user)){
-                timesUser.put(user, 0);
+                timesUser.put(user, 1);
                 continue;
             }
             timesUser.put(user, timesUser.get(user)+1);
