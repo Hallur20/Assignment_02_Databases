@@ -23,5 +23,6 @@ then...
 3. push f6
 4. type in the output console window:<br>
   'howMany' to see the amount of users<br>
-  'links' to see the user who linked the most<br>
-  'mentioned' to see the most mentioned user<br>
+  'links' to see the users who linked the most<br>
+  'mentioned' to see the most mentioned users<br>
+  'active' to see most active users
