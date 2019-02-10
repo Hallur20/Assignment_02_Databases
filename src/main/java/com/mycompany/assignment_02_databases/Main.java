@@ -46,8 +46,12 @@ public class Main {
     }
 
     public static void howManyUsers(DBCollection c) {
-        Long size = c.count();
-        System.out.println("Twitter users amountt: " + size);
+        Set<String> users = new HashSet<>();
+        DBCursor cursor = c.find();
+        while(cursor.hasNext()){
+            users.add(String.valueOf(cursor.next().get("user")));
+        }
+        System.out.println("Twitter users amount: " + users.size());
     }
 
     public static void mostLinks(DBCollection c) {
