@@ -19,7 +19,7 @@ In order to make this project work you need to setup mongodb:
 then...
 
 1. clone the project
-2. open the project in netbeans idé (you need jdk 8 for this project)
+2. open the project in netbeans idé (the project is a java maven project + you need jdk 8)
 3. push f6
 4. type in the output console window:<br>
   'howMany' to see the amount of users<br>
