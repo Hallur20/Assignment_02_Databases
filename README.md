@@ -1,3 +1,4 @@
 # Assignment_02_Databases
 
-hey
+1. clone the project
+2.
