@@ -31,6 +31,6 @@ then...
  
  
 <h2>documentation</h2>
-```java
+```
 console.log("test");
 ```
