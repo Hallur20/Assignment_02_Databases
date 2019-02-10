@@ -32,6 +32,7 @@ then...
  
 <h2>documentation</h2>
 
+this method shows how many users exists in the mongodb database
 ```java
     public static void howManyUsers(DBCollection c) {
         Set<String> users = new HashSet<>();
@@ -43,6 +44,8 @@ then...
         System.out.println("Twitter users amount: " + users.size());
     }
 ```
+
+this method shows a top-10 of the users that use the most:'@user' tag links.
 ```java
     public static void mostLinks(DBCollection c) {
         DBCursor cursor = c.find(new BasicDBObject("text", new BasicDBObject("$regex", "@")));
@@ -65,6 +68,7 @@ then...
     }
 ``` 
 
+this methods shows a top-5 of the most mentioned twitter users
 ```java
         public static void mostMentionedTwitterUsers(DBCollection c) {
         DBCursor cursor = c.find(new BasicDBObject("text", new BasicDBObject("$regex", "@")));
@@ -93,7 +97,7 @@ then...
     }
    
 ```
-    
+ this method shows a top-10 of the most active twitter users   
 ```java
     public static void mostActiveUsers(DBCollection c){
         DBCursor cursor = c.find();
