@@ -25,7 +25,7 @@ public class Main {
         MongoClient mongoClient = new MongoClient("localhost", 27017);
         DB database = mongoClient.getDB("tweets");
         DBCollection c = database.getCollection("data");
-        System.out.println("*****************\nwelcome,\ntype 'howMany' to see how many twitter users\ntype 'links' to see user who links twitter users the most\ntype 'mentioned' to see the most mentioned twitter user\n************");
+        System.out.println("*****************\nwelcome,\ntype 'howMany' to see how many twitter users\ntype 'links' to see user who links twitter users the most\ntype 'mentioned' to see the most mentioned twitter user\ntype 'active' too see most active users\n************");
         while (true) {
             String cmd = scanner.nextLine();
             if (cmd.equals("howMany")) {
