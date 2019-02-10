@@ -37,6 +37,9 @@ public class Main {
             if (cmd.equals("mentioned")) {
                 mostMentionedTwitterUsers(c);
             }
+            if(cmd.equals("active")){
+                mostActiveUsers(c);
+            }
         }
     }
 
@@ -112,6 +115,29 @@ public class Main {
             toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
                 LinkedHashMap::new));
         for (int i = 0; i < 5; i++) {
+            String key = String.valueOf(sorted.keySet().toArray()[sorted.size()-1-i]);
+            System.out.println("nr: " + (i+1) + " is " + key + " which was " + timesUser.get(key) + " times.");
+        }
+    }
+    public static void mostActiveUsers(DBCollection c){
+        DBCursor cursor = c.find();
+        HashMap<String,Integer> timesUser = new HashMap<>();   
+        while(cursor.hasNext()){
+            String user = String.valueOf(cursor.next().get("user"));
+            if(!timesUser.containsKey(user)){
+                timesUser.put(user, 0);
+                continue;
+            }
+            timesUser.put(user, timesUser.get(user)+1);
+        }
+                Map<String, Integer> sorted = timesUser
+        .entrySet()
+        .stream()
+        .sorted(comparingByValue())
+        .collect(
+            toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
+                LinkedHashMap::new));
+        for (int i = 0; i < 10; i++) {
             String key = String.valueOf(sorted.keySet().toArray()[sorted.size()-1-i]);
             System.out.println("nr: " + (i+1) + " is " + key + " which was " + timesUser.get(key) + " times.");
         }
