@@ -31,6 +31,7 @@ then...
  
  
 <h2>documentation</h2>
-```
-console.log("test");
+```javascript
+var s = "JavaScript syntax highlighting";
+alert(s);
 ```
