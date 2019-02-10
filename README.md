@@ -21,7 +21,7 @@ then...
 1. clone the project
 2. open the project in netbeans idé
 3. push f6
-4. type in the output console window:
-  'howMany' to see the amount of users
-  'links' to see the user who linked the most
-  'mentioned' to see the most mentioned user
+4. type in the output console window:<br>
+  'howMany' to see the amount of users<br>
+  'links' to see the user who linked the most<br>
+  'mentioned' to see the most mentioned user<br>
