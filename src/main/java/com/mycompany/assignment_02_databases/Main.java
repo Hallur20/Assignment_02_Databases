@@ -67,17 +67,7 @@ public class Main {
                 }
                 timesUser.put(userKey, timesUser.get(userKey) + 1);
             }
-        Map<String, Integer> sorted = timesUser
-        .entrySet()
-        .stream()
-        .sorted(comparingByValue())
-        .collect(
-            toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
-                LinkedHashMap::new));
-        for (int i = 0; i < 10; i++) {
-            String key = String.valueOf(sorted.keySet().toArray()[sorted.size()-1-i]);
-            System.out.println("nr: " + (i+1) + " is " + key + " which was " + timesUser.get(key) + " times.");
-        }
+        sortHashMapAndShowTopList(timesUser, 10);
         } finally {
             cursor.close();
         }
@@ -107,17 +97,7 @@ public class Main {
             System.out.println(e.getMessage());
         }
         //String most = timesUser.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
-        Map<String, Integer> sorted = timesUser
-        .entrySet()
-        .stream()
-        .sorted(comparingByValue())
-        .collect(
-            toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
-                LinkedHashMap::new));
-        for (int i = 0; i < 5; i++) {
-            String key = String.valueOf(sorted.keySet().toArray()[sorted.size()-1-i]);
-            System.out.println("nr: " + (i+1) + " is " + key + " which was " + timesUser.get(key) + " times.");
-        }
+        sortHashMapAndShowTopList(timesUser, 5);
     }
     public static void mostActiveUsers(DBCollection c){
         DBCursor cursor = c.find();
@@ -130,16 +110,20 @@ public class Main {
             }
             timesUser.put(user, timesUser.get(user)+1);
         }
-                Map<String, Integer> sorted = timesUser
+        
+        sortHashMapAndShowTopList(timesUser, 10);
+    }
+    public static void sortHashMapAndShowTopList(HashMap<String,Integer> hm, int topListSize){
+                    Map<String, Integer> sorted = hm
         .entrySet()
         .stream()
         .sorted(comparingByValue())
         .collect(
             toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
                 LinkedHashMap::new));
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < topListSize; i++) {
             String key = String.valueOf(sorted.keySet().toArray()[sorted.size()-1-i]);
-            System.out.println("nr: " + (i+1) + " is " + key + " which was " + timesUser.get(key) + " times.");
+            System.out.println("nr: " + (i+1) + " is " + key + " which was " + hm.get(key) + " times.");
         }
     }
 }
