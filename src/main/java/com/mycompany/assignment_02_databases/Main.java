@@ -31,15 +31,16 @@ public class Main {
         MongoClient mongoClient = new MongoClient("localhost", 27017);
         DB database = mongoClient.getDB("tweets");
         DBCollection c = database.getCollection("data");
-        System.out.println("\n\n\n>>>>>welcome,\ntype 'howMany' to see how many twitter users\ntype 'links' to see user who links twitter users the most\ntype 'mentioned' to see the most mentioned twitter user<<<<<<<\n");
+        System.out.println("*****************\nwelcome,\ntype 'howMany' to see how many twitter users\ntype 'links' to see user who links twitter users the most\ntype 'mentioned' to see the most mentioned twitter user\n************");
         while (true) {
-            if (scanner.nextLine().equals("howMany")) {
+            String cmd = scanner.nextLine();
+            if (cmd.equals("howMany")) {
                 howManyUsers(c);
             }
-            if (scanner.nextLine().equals("links")) {
+            if (cmd.equals("links")) {
                 mostLinks(c);
             }
-            if (scanner.nextLine().equals("mentioned")) {
+            if (cmd.equals("mentioned")) {
                 mostMentionedTwitterUsers(c);
             }
         }
@@ -48,7 +49,8 @@ public class Main {
     public static void howManyUsers(DBCollection c) {
         Set<String> users = new HashSet<>();
         DBCursor cursor = c.find();
-        while(cursor.hasNext()){
+        System.out.println("calculating hold on...");
+        while (cursor.hasNext()) {
             users.add(String.valueOf(cursor.next().get("user")));
         }
         System.out.println("Twitter users amount: " + users.size());
@@ -58,6 +60,7 @@ public class Main {
         DBCursor cursor = c.find(new BasicDBObject("text", new BasicDBObject("$regex", "@")));
         HashMap<String, Integer> timesUser = new HashMap<>();
         try {
+            System.out.println("calculating hold on...");
             while (cursor.hasNext()) {
                 String userKey = String.valueOf(cursor.next().get("user"));
 
@@ -75,27 +78,31 @@ public class Main {
     }
 
     public static void mostMentionedTwitterUsers(DBCollection c) {
-        DBCursor cursor = c.find();
-        HashMap<String, Integer> usersMentioned = new HashMap<>();
-
-        while (cursor.hasNext()) {
-            String key = String.valueOf(cursor.next().get("user"));
-            if (!usersMentioned.containsKey(key)) {
-                usersMentioned.put(key, 0);
-            }
-        }
-        System.out.println("users added.");
-        for (int i = 0; i < usersMentioned.size(); i++) {
-            String key = String.valueOf(usersMentioned.keySet().toArray()[i]);
-            System.out.println("lets check " + key + "...");
-
-            cursor = c.find(new BasicDBObject("text", new BasicDBObject("$regex", key)));
+        DBCursor cursor = c.find(new BasicDBObject("text", new BasicDBObject("$regex", "@")));
+        HashMap<String, Integer> timesUser = new HashMap<>();
+        try {
             while (cursor.hasNext()) {
-                usersMentioned.put(key, usersMentioned.get(key) + 1);
-                cursor.next();
+                String line = String.valueOf(cursor.next().get("text"));
+                String[] users = line.split("@");
+                for (int i = 1; i < users.length; i++) {
+                    String key = users[i].split(" ")[0];
+                    if (key.isEmpty()) {
+                        continue;
+                    }
+                    if (!timesUser.containsKey(key)) {
+                        timesUser.put(key, 0);
+                        continue;
+                    }
+                    timesUser.put(key, timesUser.get(key) + 1);
+                }
+
             }
+            System.out.println("done?");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        String most = usersMentioned.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
-        System.out.println("most mentioned twitter user is: " + most + " by " + usersMentioned.get(most) + " times");
+        System.out.println(timesUser);
+        String most = timesUser.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
+        System.out.println("user who was mentioned the most is: " + most + ", times was:  " + timesUser.get(most));
     }
 }
