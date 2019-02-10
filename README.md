@@ -33,6 +33,75 @@ then...
 <h2>documentation</h2>
 
 ```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
+    public static void howManyUsers(DBCollection c) {
+        Set<String> users = new HashSet<>();
+        DBCursor cursor = c.find();
+        System.out.println("calculating hold on...");
+        while (cursor.hasNext()) {
+            users.add(String.valueOf(cursor.next().get("user")));
+        }
+        System.out.println("Twitter users amount: " + users.size());
+    }
+    
+    public static void mostLinks(DBCollection c) {
+        DBCursor cursor = c.find(new BasicDBObject("text", new BasicDBObject("$regex", "@")));
+        HashMap<String, Integer> timesUser = new HashMap<>();
+        try {
+            System.out.println("calculating hold on...");
+            while (cursor.hasNext()) {
+                String userKey = String.valueOf(cursor.next().get("user"));
+
+                if (!timesUser.containsKey(userKey)) {
+                    timesUser.put(String.valueOf(cursor.next().get("user")), 1);
+                    continue;
+                }
+                timesUser.put(userKey, timesUser.get(userKey) + 1);
+            }
+        sortHashMapAndShowTopList(timesUser, 10);
+        } finally {
+            cursor.close();
+        }
+    }
+    
+        public static void mostMentionedTwitterUsers(DBCollection c) {
+        DBCursor cursor = c.find(new BasicDBObject("text", new BasicDBObject("$regex", "@")));
+        HashMap<String, Integer> timesUser = new HashMap<>();
+        try {
+            while (cursor.hasNext()) {
+                String line = String.valueOf(cursor.next().get("text"));
+                String[] users = line.split("@");
+                for (int i = 1; i < users.length; i++) {
+                    String key = users[i].split(" ")[0];
+                    if (key.isEmpty()) {
+                        continue;
+                    }
+                    if (!timesUser.containsKey(key)) {
+                        timesUser.put(key, 0);
+                        continue;
+                    }
+                    timesUser.put(key, timesUser.get(key) + 1);
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        //String most = timesUser.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
+        sortHashMapAndShowTopList(timesUser, 5);
+    }
+    
+    public static void mostActiveUsers(DBCollection c){
+        DBCursor cursor = c.find();
+        HashMap<String,Integer> timesUser = new HashMap<>();   
+        while(cursor.hasNext()){
+            String user = String.valueOf(cursor.next().get("user"));
+            if(!timesUser.containsKey(user)){
+                timesUser.put(user, 0);
+                continue;
+            }
+            timesUser.put(user, timesUser.get(user)+1);
+        }
+        
+        sortHashMapAndShowTopList(timesUser, 10);
+    }
 ```
