@@ -64,8 +64,17 @@ public class Main {
                 }
                 timesUser.put(userKey, timesUser.get(userKey) + 1);
             }
-            String most = timesUser.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
-            System.out.println("user who links the most to other twitter users: " + most + ", times is: " + timesUser.get(most));
+        Map<String, Integer> sorted = timesUser
+        .entrySet()
+        .stream()
+        .sorted(comparingByValue())
+        .collect(
+            toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
+                LinkedHashMap::new));
+        for (int i = 0; i < 10; i++) {
+            String key = String.valueOf(sorted.keySet().toArray()[sorted.size()-1-i]);
+            System.out.println("nr: " + (i+1) + " is " + key + " which was " + timesUser.get(key) + " times.");
+        }
         } finally {
             cursor.close();
         }
@@ -91,12 +100,10 @@ public class Main {
                 }
 
             }
-            System.out.println("done?");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(timesUser);
-        String most = timesUser.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
+        //String most = timesUser.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
         Map<String, Integer> sorted = timesUser
         .entrySet()
         .stream()
@@ -104,9 +111,9 @@ public class Main {
         .collect(
             toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
                 LinkedHashMap::new));
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             String key = String.valueOf(sorted.keySet().toArray()[sorted.size()-1-i]);
-            System.out.println("nr: " + i+1 + " is " + key + " which was " + timesUser.get(key) + " times.");
+            System.out.println("nr: " + (i+1) + " is " + key + " which was " + timesUser.get(key) + " times.");
         }
     }
 }
