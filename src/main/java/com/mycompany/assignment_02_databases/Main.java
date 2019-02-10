@@ -1,24 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.assignment_02_databases;
 
-import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import static java.util.Map.Entry.comparingByValue;
 import java.util.Scanner;
 import java.util.Set;
+import static java.util.stream.Collectors.toMap;
 
 /**
  *
@@ -103,6 +97,16 @@ public class Main {
         }
         System.out.println(timesUser);
         String most = timesUser.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
-        System.out.println("user who was mentioned the most is: " + most + ", times was:  " + timesUser.get(most));
+        Map<String, Integer> sorted = timesUser
+        .entrySet()
+        .stream()
+        .sorted(comparingByValue())
+        .collect(
+            toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
+                LinkedHashMap::new));
+        for (int i = 0; i < 10; i++) {
+            String key = String.valueOf(sorted.keySet().toArray()[sorted.size()-1-i]);
+            System.out.println("nr: " + i+1 + " is " + key + " which was " + timesUser.get(key) + " times.");
+        }
     }
 }
