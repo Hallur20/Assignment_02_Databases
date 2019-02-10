@@ -14,6 +14,7 @@ In order to make this project work you need to setup mongodb:
 11. type: 'sed -i '1s;^;polarity,id,date,query,user,text\n;' converted-utf8.csv' to prepare headers...
 12. type: 'mongoimport --host=127.0.0.1 -d tweets -c data --type csv --file converted-utf8.csv --headerlineconnected to: 127.0.0.1'
 
+check in your prefered mongodb software (or just in terminal by typing 'mongo') if you have now a database called 'tweets' and a collection called 'data'.
 
 
 then...
