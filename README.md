@@ -16,7 +16,7 @@ In order to make this project work you need to setup mongodb:
 
 ...if you're having problems, the way i fixed it was by cloning <a href="https://github.com/datsoftlyngby/soft2018spring-databases-teaching-material"> this vagrant repository</a> and then do -> vagrant up -> vagrant ssh. If mongo is up (type 'mongo' to check) repeat all steps again except 3,4,5... else repeat all.
 
-check in your prefered mongodb software (or just in terminal by typing 'mongo') if you have now a database called 'tweets' and a collection called 'data'.
+check in your prefered mongodb software (or just in terminal by typing 'mongo') if you have now a database called 'tweets' and a collection called 'data'. Host should be 'localhost' and port should be'27017'.
 
 
 then...
