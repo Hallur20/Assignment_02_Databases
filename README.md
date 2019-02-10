@@ -1,7 +1,7 @@
 # Assignment_02_Databases
 
 In order to make this project work you need to setup mongodb:
-1. go to your vagrant or linux server.
+1. go to your vagrant or linux terminal.
 2. type 'sudo apt update
 3. type 'sudo apt install -y mongodb'
 4. check status with: 'sudo systemctl status mongodb'
@@ -21,7 +21,7 @@ then...
 1. clone the project
 2. open the project in netbeans idé
 3. push f6
-4. type in the output console window:
-  'howMany' to see the amount of users
-  'links' to see the user who linked the most
-  'mentioned' to see the most mentioned user
+4. type in the output console window:<br>
+  'howMany' to see the amount of users<br>
+  'links' to see the user who linked the most<br>
+  'mentioned' to see the most mentioned user<br>
