@@ -1,7 +1,7 @@
 # Assignment_02_Databases
 
 In order to make this project work you need to setup mongodb:
-1. go to your vagrant or linux server.
+1. go to your vagrant or linux terminal.
 2. type 'sudo apt update
 3. type 'sudo apt install -y mongodb'
 4. check status with: 'sudo systemctl status mongodb'
