@@ -32,7 +32,7 @@ then...
  
 <h2>documentation</h2>
 
-```javascript
+```java
     public static void howManyUsers(DBCollection c) {
         Set<String> users = new HashSet<>();
         DBCursor cursor = c.find();
@@ -42,7 +42,8 @@ then...
         }
         System.out.println("Twitter users amount: " + users.size());
     }
-    
+```
+```java
     public static void mostLinks(DBCollection c) {
         DBCursor cursor = c.find(new BasicDBObject("text", new BasicDBObject("$regex", "@")));
         HashMap<String, Integer> timesUser = new HashMap<>();
@@ -62,7 +63,9 @@ then...
             cursor.close();
         }
     }
-    
+``` 
+
+```java
         public static void mostMentionedTwitterUsers(DBCollection c) {
         DBCursor cursor = c.find(new BasicDBObject("text", new BasicDBObject("$regex", "@")));
         HashMap<String, Integer> timesUser = new HashMap<>();
@@ -89,7 +92,10 @@ then...
         //String most = timesUser.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
         sortHashMapAndShowTopList(timesUser, 5);
     }
+   
+```
     
+```java
     public static void mostActiveUsers(DBCollection c){
         DBCursor cursor = c.find();
         HashMap<String,Integer> timesUser = new HashMap<>();   
@@ -104,4 +110,5 @@ then...
         
         sortHashMapAndShowTopList(timesUser, 10);
     }
+
 ```
