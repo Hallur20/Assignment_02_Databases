@@ -12,7 +12,7 @@ In order to make this project work you need to setup mongodb:
 9. type: 'unzip trainingandtestdata.zip'
 10. type: 'iconv -f ISO-8859-1 -t utf-8 training.1600000.processed.noemoticon.csv > converted-utf8.csv' (this converts it to utf8)
 11. type: 'sed -i '1s;^;polarity,id,date,query,user,text\n;' converted-utf8.csv' to prepare headers...
-12. type: 'mongoimport --host=127.0.0.1 -d tweets -c data --type csv --file converted-utf8.csv --headerlineconnected to: 127.0.0.1'             to import to mongodb...
+12. type: 'mongoimport --host=127.0.0.1 -d tweets -c data --type csv --file converted-utf8.csv --headerlineconnected to: 127.0.0.1'
 
 
 
